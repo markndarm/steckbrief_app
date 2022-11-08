@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:steckbrief_app/screens/datenschutz_screen.dart';
+import 'package:steckbrief_app/screens/second_screen.dart';
 import 'package:steckbrief_app/screens/settings_screen.dart';
+import 'package:steckbrief_app/screens/stack_screen.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({Key? key}) : super(key: key);
@@ -12,18 +15,20 @@ class StartScreen extends StatelessWidget {
         title: InkWell(
           onTap: () {
             ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar (content: Text('You are already at home!')));
+                const SnackBar(content: Text('You are already at home!')));
           },
           child: Text("Marks Seite"),
         ),
-        actions: <Widget> [
+        actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SettingsScreen()),
-                );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const SettingsScreen();
+                }),
+              );
             },
           ),
         ],
@@ -36,11 +41,11 @@ class StartScreen extends StatelessWidget {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width / 2,
-                      height: MediaQuery.of(context).size.width/2,
+                      height: MediaQuery.of(context).size.width / 2,
                       child: Image.asset("assets/wingler.jpg")),
                   Container(
                     width: MediaQuery.of(context).size.width / 2,
-                    child:Text(
+                    child: Text(
                       "Mark Baena",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -51,7 +56,6 @@ class StartScreen extends StatelessWidget {
                   ),
                 ],
               ),
-
               macheZeile(
                 text: "Alter: 21",
               ),
@@ -59,25 +63,50 @@ class StartScreen extends StatelessWidget {
                 text: "Augenfarbe: grün",
               ),
               macheZeile(),
-
+              ElevatedButton(
+                onPressed: () async { // anonyme und asynchrone Funktion
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SecondScreen()),
+                  );
+                },
+                child: Text("Servus"),
+              ),
+              ElevatedButton(
+                onPressed: () async { // anonyme und asynchrone Funktion
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => StackScreen()),
+                  );
+                },
+                child: Text("Stack"),
+              ),
+              ElevatedButton(
+                onPressed: () async { // anonyme und asynchrone Funktion
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DatenschutzScreen()),
+                  );
+                },
+                child: Text("Datenschutz"),
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {
-
-        },
-        child: Icon(Icons.brightness_4_rounded)
-      ),
+          onPressed: () => {}, child: Icon(Icons.brightness_4_rounded)),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.indigo,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
-        items: const <BottomNavigationBarItem> [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white,),
+            icon: Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
             label: "Home",
           ),
           BottomNavigationBarItem(
@@ -95,8 +124,7 @@ class StartScreen extends StatelessWidget {
       child: Container(
         color: Colors.black38,
         width: 300,
-        child: Text(
-            text,
+        child: Text(text,
             style: TextStyle(
               fontSize: 48.0,
               fontWeight: FontWeight.bold,
